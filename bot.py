@@ -35,7 +35,8 @@ def generate_text(update, context):
 
 def main():
     bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
-    updater = Updater(bot_token, use_context=True)
+    context_factory=lambda: RequestContext(bot_token)
+    updater = Updater(bot_token, context_factory=context_factory)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("temperature", temperature))

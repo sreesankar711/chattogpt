@@ -2,8 +2,7 @@ import openai
 import os
 import json
 import telegram
-from telegram import Filters
-from telegram.ext import Updater, CommandHandler, MessageHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 

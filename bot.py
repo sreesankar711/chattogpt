@@ -3,6 +3,8 @@ import os
 import json
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, filters
+from queue import Queue
+
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -35,7 +37,8 @@ def generate_text(update, context):
 
 def main():
     bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
-    updater = Updater(bot_token)
+    update_queue = Queue()
+    updater = Updater(bot_token, update_queue)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("temperature", temperature))

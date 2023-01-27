@@ -2,7 +2,7 @@ import openai
 import os
 import json
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 from queue import Queue
 
 
@@ -39,10 +39,9 @@ def main():
     bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
     update_queue = Queue()
     updater = Updater(bot_token, update_queue)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("temperature", temperature))
-    dp.add_handler(MessageHandler(Filters.text, generate_text))
+    updater.add_handler(CommandHandler("start", start))
+    updater.add_handler(CommandHandler("temperature", temperature))
+    updater.add_handler(MessageHandler(Filters.text, generate_text))
     updater.start_polling()
     updater.idle()
 

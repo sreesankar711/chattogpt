@@ -38,9 +38,9 @@ def generate_text(update, context):
 def main():
     application = Application.builder().token("TELEGRAM_BOT_TOKEN").build()
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler("start", start)]
-        TEMPERATURE: [CommandHandler("temperature", temperature)]
-        TEXT: [MessageHandler(Filters.text, generate_text)]
+        entry_points=[CommandHandler("start", start)],
+        TEMPERATURE: [CommandHandler("temperature", temperature)],
+        TEXT: [MessageHandler(Filters.text, generate_text)],
     )
     application.add_handler(conv_handler)
     application.run_polling()

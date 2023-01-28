@@ -36,14 +36,16 @@ def generate_text(update, context):
         update.message.reply_text(str(e))
 
 def main():
-    bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
-    update_queue = Queue()
-    updater = Updater(bot_token, update_queue)
-    updater.add_handler(CommandHandler("start", start))
-    updater.add_handler(CommandHandler("temperature", temperature))
-    updater.add_handler(MessageHandler(Filters.text, generate_text))
-    updater.start_polling()
-    updater.idle()
+    application = Application.builder().token("TELEGRAM_BOT_TOKEN").build()
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler("start", start)]
+        TEMPERATURE: [CommandHandler("temperature", temperature)],
+        TEXT: [MessageHandler(Filters.text, generate_text)],
+    )
+    application.add_handler(conv_handler)
+    application.run_polling()
+    application.idle()
+    
 
 if __name__ == '__main__':
     main()

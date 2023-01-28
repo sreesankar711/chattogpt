@@ -2,7 +2,7 @@ import openai
 import os
 import json
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackQueryHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackQueryHandler, Application
 from queue import Queue
 
 
@@ -39,8 +39,8 @@ def main():
     application = Application.builder().token("TELEGRAM_BOT_TOKEN").build()
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)]
-        TEMPERATURE: [CommandHandler("temperature", temperature)],
-        TEXT: [MessageHandler(Filters.text, generate_text)],
+        TEMPERATURE: [CommandHandler("temperature", temperature)]
+        TEXT: [MessageHandler(Filters.text, generate_text)]
     )
     application.add_handler(conv_handler)
     application.run_polling()
